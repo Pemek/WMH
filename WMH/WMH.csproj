@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>32e7a919-79d5-4bb8-b021-7f58b6e188a8</ProjectGuid>
+    <ProjectGuid>{D5E7E2C9-8A27-44B1-8487-3B9A0A9776E9}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>WMH</RootNamespace>
@@ -66,6 +66,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\Edge.cs" />
+    <Compile Include="Model\Graph.cs" />
+    <Compile Include="Model\Vertex.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
