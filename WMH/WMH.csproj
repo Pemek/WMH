@@ -52,6 +52,13 @@
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
+    <Compile Include="TabuSearch\IAspirationCriteria.cs" />
+    <Compile Include="TabuSearch\ICostFinder.cs" />
+    <Compile Include="TabuSearch\ILongTermMemory.cs" />
+    <Compile Include="TabuSearch\INeighbourFinder.cs" />
+    <Compile Include="TabuSearch\IStopCriteria.cs" />
+    <Compile Include="TabuSearch\ITabuList.cs" />
+    <Compile Include="TabuSearch\TabuSearch.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
