@@ -60,6 +60,7 @@
     <Compile Include="TabuSearch\INeighbourFinder.cs" />
     <Compile Include="TabuSearch\IStopCriteria.cs" />
     <Compile Include="TabuSearch\ITabuList.cs" />
+    <Compile Include="TabuSearch\IterationStopCriteria.cs" />
     <Compile Include="TabuSearch\TabuList.cs" />
     <Compile Include="TabuSearch\TabuSearch.cs" />
     <Page Include="MainWindow.xaml">
