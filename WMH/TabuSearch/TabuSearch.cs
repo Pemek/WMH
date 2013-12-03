@@ -35,8 +35,7 @@ namespace WMH.TabuSearch
         /// <returns>List of edges between each graphs.</returns>
         public IList<Edge> FindSolution(Graph firstGraph, Graph secondGraph)
         {
-            IList<Edge> actualSolution = null;
-            // TODO generate initial solution
+            IList<Edge> actualSolution = this.GenerateInitialSolution(firstGraph, secondGraph);
             IList<Edge> bestSolution = actualSolution;
 
             this.stopCriteria.InitialSolution(actualSolution);
@@ -44,7 +43,7 @@ namespace WMH.TabuSearch
             Neighbour selectedNeighbour = null;
             while (!this.stopCriteria.IsCriteriaMeet())
             {
-                selectedNeighbour = this.FindBestNeigbour(actualSolution, bestSolution, firstGraph, secondGraph);
+                selectedNeighbour = this.FindBestNeighbour(actualSolution, bestSolution, firstGraph, secondGraph);
                 if (selectedNeighbour == null)
                 {
                     throw new Exception("No best neighbour found");
@@ -70,15 +69,15 @@ namespace WMH.TabuSearch
         /// <param name="firstGraph">First graph</param>
         /// <param name="secondGraph">Second graph</param>
         /// <returns>Best found neighbour</returns>
-        private Neighbour FindBestNeigbour(IList<Edge> actualSolution, IList<Edge> bestSolution, Graph firstGraph, Graph secondGraph)
+        private Neighbour FindBestNeighbour(IList<Edge> actualSolution, IList<Edge> bestSolution, Graph firstGraph, Graph secondGraph)
         {
             var neighbours = this.neighbourFinder.FindNeighbours(actualSolution, firstGraph, secondGraph);
-            
+
             // Order by descending cost ensures, that nighbours will be checked from best to the worst. 
             foreach (var neighbour in neighbours.OrderByDescending(n => n.Cost))
             {
                 // is on tabu, but meets aspiration criteria, or is not on tabu list.
-                if ((this.tabuList.IsOntabuList(neighbour.ChangeMade.AddedEdges) && this.aspirationCriteria.IsCriteriaMeet(neighbour.NewSolution, bestSolution))
+                if ((this.tabuList.IsOntabuList(neighbour.ChangeMade.AddedEdges) && this.aspirationCriteria.IsCriteriaMeet(neighbour, bestSolution))
                     || !this.tabuList.IsOntabuList(neighbour.ChangeMade.AddedEdges))
                 {
                     return neighbour;

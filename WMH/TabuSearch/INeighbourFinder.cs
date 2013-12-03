@@ -31,6 +31,8 @@ namespace WMH.TabuSearch
         /// <param name="firstGraph">One of the graphs.</param>
         /// <param name="secondGraph">Second of graphs.</param>
         /// <returns></returns>
+        /// 
+        // TODO Remember to take long ter memory into account, when computing neighbour cost.
         IList<Neighbour> FindNeighbours(IList<Edge> solution, Graph firstGraph, Graph secondGraph);
     }
 }

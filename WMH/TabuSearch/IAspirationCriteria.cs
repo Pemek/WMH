@@ -16,9 +16,9 @@ namespace WMH.TabuSearch
         /// 
         /// NOTE[Łukasz]: Propably this would be better cost than best solution.
         /// </summary>
-        /// <param name="newSolution">New solution to check aspiration criteria for.</param>
+        /// <param name="neighbour">Neighbour to check aspiration criteria for.</param>
         /// <param name="bestSolution">Best solution to compare cost.</param>
         /// <returns>True if given solution meets aspiration criteria.</returns>
-        bool IsCriteriaMeet(IList<Edge> newSolution, IList<Edge> bestSolution);
+        bool IsCriteriaMeet(Neighbour neighbour, IList<Edge> bestSolution);
     }
 }

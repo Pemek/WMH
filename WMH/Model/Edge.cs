@@ -15,7 +15,7 @@ namespace WMH.Model
         {
             get
             {
-                return Math.Sqrt(Math.Pow(this.End.X - this.Start.Y, 2) + Math.Pow(this.End.X - this.Start.Y, 2));
+                return Math.Sqrt(Math.Pow(this.End.X - this.Start.X, 2) + Math.Pow(this.End.Y - this.Start.Y, 2));
             }
         }
 
