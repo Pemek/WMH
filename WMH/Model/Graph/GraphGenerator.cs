@@ -42,18 +42,19 @@ namespace WMH.Model.GraphGenerator
 
         private static void createAllEdge(ref Graph graph)
         {
-            foreach (Vertex vertex in graph.Vertexes)
+            for (int edgeNumber = 0; edgeNumber < graph.Vertexes.Count; edgeNumber++)
             {
-                createEdgeToAllOtherVertex(vertex, ref graph);
+                createEdgeToAllOtherVertex(edgeNumber, ref graph);
             }
         }
 
-        private static void createEdgeToAllOtherVertex(Vertex vertex ,ref Graph graph)
+        private static void createEdgeToAllOtherVertex(int vertexNumber ,ref Graph graph)
         {
-            foreach (Vertex vertext2 in graph.Vertexes)
+            if (vertexNumber >= graph.Vertexes.Count)
+                return;
+            for (int i = vertexNumber+1; i < graph.Vertexes.Count; i++)
             {
-                if(vertex != vertext2)
-                    graph.Edges.Add(new Edge(vertex, vertext2));
+                graph.Edges.Add(new Edge(graph.Vertexes[vertexNumber], graph.Vertexes[i]));
             }
         }
     }
