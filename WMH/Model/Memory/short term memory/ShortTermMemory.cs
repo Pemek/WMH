@@ -12,23 +12,30 @@ namespace WMH.Model.Memory.short_term_memory
         //IDictionary<Guid, bool> EdgeList;
         Queue<Guid> EdgeList;
         Guid GuidOfOldestEdge;
-        //int MaxNumbersOfEdge;
+        int MaxNumbersOfEdge;
 
         public ShortTermMemory(int numberOfEdgesInShortMemory)
         {
             //EdgeList = new Dictionary<Guid, bool>(numberOfEdgesInShortMemory);
             EdgeList = new Queue<Guid>(numberOfEdgesInShortMemory);
-            //MaxNumbersOfEdge = numberOfEdgesInShortMemory;
+            MaxNumbersOfEdge = numberOfEdgesInShortMemory;
         }
 
         public void addEdge(Edge edge)
         {
-            if(!EdgeList.Contains(edge.edgeGuid))
-                EdgeList.Enqueue(edge.edgeGuid);
+            if (EdgeList.Contains(edge.edgeGuid))
+                return;
+            if (EdgeList.Count >= MaxNumbersOfEdge)
+                EdgeList.Dequeue();
+            EdgeList.Enqueue(edge.edgeGuid);
         }
-        //private void deleteEdge(Edge edge)
-        //{
-        //    EdgeList.Remove(edge.edgeGuid);
-        //}
+        public bool searchEdge(Edge edge)
+        {
+            return EdgeList.Contains(edge.edgeGuid);
+        }
+        public int count()
+        {
+            return EdgeList.Count;
+        }
     }
 }
