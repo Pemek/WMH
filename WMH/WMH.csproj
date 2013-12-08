@@ -53,6 +53,11 @@
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
     <Compile Include="Model\Comparators\EdgeComparator.cs" />
+    <Compile Include="Model\Graph\GraphGenerator.cs" />
+    <Compile Include="Model\Memory\long term memory\EdgeAppeared.cs" />
+    <Compile Include="Model\Memory\long term memory\LongTermMemory.cs" />
+    <Compile Include="Model\Memory\short term memory\EdgeAppeared.cs" />
+    <Compile Include="Model\Memory\short term memory\ShortTermMemory.cs" />
     <Compile Include="TabuSearch\CostFinder.cs" />
     <Compile Include="TabuSearch\IAspirationCriteria.cs" />
     <Compile Include="TabuSearch\ICostFinder.cs" />
@@ -77,9 +82,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\Edge.cs" />
-    <Compile Include="Model\Graph.cs" />
-    <Compile Include="Model\Vertex.cs" />
+    <Compile Include="Model\Graph\Edge.cs" />
+    <Compile Include="Model\Graph\Graph.cs" />
+    <Compile Include="Model\Graph\Vertex.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -106,6 +111,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
