@@ -8,10 +8,10 @@ namespace WMH.Model.Memory.long_term_memory
 {
     class EdgeAppeared
     {
-        public Guid guid;
+        public string guid;
         public int NumberOfOccurrences;
 
-        public EdgeAppeared(Guid _guid)
+        public EdgeAppeared(string _guid)
         {
             guid = _guid;
         }

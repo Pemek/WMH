@@ -9,10 +9,10 @@ namespace WMH.Model.Memory.long_term_memory
     public class LongTermMemory
     {
         //number of occurrences all edge in application
-        IDictionary<Guid, int> EdgeList;
+        IDictionary<string, int> EdgeList;
         public LongTermMemory()
         {
-            EdgeList = new Dictionary<Guid, int>();
+            EdgeList = new Dictionary<string, int>();
         }
         public void addEdge(Edge edge)
         {
@@ -30,6 +30,11 @@ namespace WMH.Model.Memory.long_term_memory
         public void clearMemory()
         {
             EdgeList.Clear();
+        }
+
+        public int getNumberOfAppearedEdge(Edge edge)
+        {
+            return EdgeList[edge.edgeGuid];
         }
     }
 }

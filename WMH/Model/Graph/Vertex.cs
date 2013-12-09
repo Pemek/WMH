@@ -10,6 +10,7 @@ namespace WMH.Model
     {
         public double X { get; set; }
         public double Y { get; set; }
+        public Guid VertexGuid { get; set; }
 
         public Vertex()
             : this(0, 0)
@@ -20,6 +21,7 @@ namespace WMH.Model
         {
             this.X = x;
             this.Y = y;
+            VertexGuid = Guid.NewGuid();
         }
     }
 }

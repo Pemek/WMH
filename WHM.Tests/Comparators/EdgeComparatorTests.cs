@@ -37,5 +37,20 @@ namespace WHM.Tests.Comparators
             // assert
             return edge1.AreEqual(edge2);
         }
+
+        [TestCase(1,2,3,4, Result=true)]
+        public bool EdgeGUIDTests(double x1, double y1, double x2, double y2)
+        {
+            Vertex vertex1 = new Vertex(x1, y1);
+            Vertex vertex2 = new Vertex(x2, y2);
+            Edge edge1 = new Edge(vertex1, vertex2);
+            Edge edge2 = new Edge(vertex1, vertex2);
+            Edge edge3 = new Edge(vertex2, vertex1);
+            if (!edge1.edgeGuid.Equals(edge2.edgeGuid))
+                return false;
+            if (edge1.edgeGuid.Equals(edge3.edgeGuid))
+                return false;
+            return true;
+        }
     }
 }

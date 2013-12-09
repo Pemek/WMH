@@ -10,7 +10,7 @@ namespace WMH.Model
     {
         public Vertex Start { get; private set; }
         public Vertex End { get; private set; }
-        public Guid edgeGuid;
+        public string edgeGuid;
 
         public double Length
         {
@@ -24,7 +24,7 @@ namespace WMH.Model
         {
             this.Start = start;
             this.End = end;
-            edgeGuid = Guid.NewGuid();
+            edgeGuid = start.VertexGuid.ToString() + end.VertexGuid.ToString();
         }
     }
 }
