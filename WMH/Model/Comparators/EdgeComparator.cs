@@ -18,11 +18,11 @@ namespace WMH.Model.Comparators
         {
             return (edge.Start.Equals(anotherEdge.Start) && edge.End.Equals(anotherEdge.End)) || (edge.Start.Equals(anotherEdge.End) && edge.End.Equals(anotherEdge.Start));
         }
-        public static bool AreEqualByGuid(this Edge edge, Edge anotherEdge)
-        {
-            if (edge.edgeGuid.Equals(anotherEdge.edgeGuid))
-                return true;
-            return false;
-        }
+        //public static bool AreEqualByGuid(this Edge edge, Edge anotherEdge)
+        //{
+        //    if (edge.edgeGuid.Equals(anotherEdge.edgeGuid))
+        //        return true;
+        //    return false;
+        //}
     }
 }

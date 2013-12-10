@@ -49,7 +49,8 @@ namespace WMH.TabuSearch
                     throw new Exception("No best neighbour found");
                 }
                 this.tabuList.AddChange(selectedNeighbour.ChangeMade.AddedEdges);
-                this.longTermMemory.AddChange(selectedNeighbour.ChangeMade.AddedEdges);
+                //todo tutaj ponizsza linia kodu sie nie kompiluje bo inna jest implementyacja addChange
+                //this.longTermMemory.AddChange(selectedNeighbour.ChangeMade.AddedEdges);
                 actualSolution = selectedNeighbour.NewSolution;
                 if (this.costFinder.GetCost(actualSolution) < this.costFinder.GetCost(bestSolution))
                 {

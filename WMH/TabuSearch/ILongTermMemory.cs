@@ -15,6 +15,8 @@ namespace WMH.TabuSearch
         /// Adds list of 2 edges to long term memory.
         /// </summary>
         /// <param name="addedEdges">List of 2 edges that were added to solution and should be added to long term memory.</param>
-        void AddChange(IList<Edge> addedEdges);
+        void AddChange(EdgesAdded addedEdges);
+        int Count();
+        int numberRecurrences(EdgesAdded edges);
     }
 }
