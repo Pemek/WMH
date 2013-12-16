@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WMH.Model.Comparators;
-using WMH.TabuSearch;
+using WMH.Model;
 
-namespace WMH.Model.Memory
+namespace WMH.TabuSearch
 {
     public class LongTermMemory : ILongTermMemory
     {

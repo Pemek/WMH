@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
-using WMH.Model.Memory;
 using WMH.Model;
 using WMH.Model.Comparators;
+using WMH.TabuSearch;
 
 namespace WHM.Tests.Memory
 {

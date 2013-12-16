@@ -9,6 +9,16 @@ namespace WMH.TabuSearch
 {
     public class NeighbourFinder : INeighbourFinder
     {
+        private readonly ICostFinder costFinder;
+
+        private readonly ILongTermMemory longTermMemory;
+
+        public NeighbourFinder(ICostFinder costFinder, ILongTermMemory longTermMemory)
+        {
+            this.costFinder = costFinder;
+            this.longTermMemory = longTermMemory;
+        }
+
         public IList<Neighbour> FindNeighbours(IList<Model.Edge> solution)
         {
             var neighbours = new List<Neighbour>();
@@ -23,12 +33,13 @@ namespace WMH.TabuSearch
                     newSolution.Remove(anotherEdge);
                     newSolution.Add(addedEdge1);
                     newSolution.Add(addedEdge2);
-
+                    var edgesAdded = new EdgesAdded(addedEdge1, addedEdge2);
                     neighbours.Add(new Neighbour
                     {
-                        AddedEdges = new EdgesAdded(addedEdge1, addedEdge2),
-                        // TODO Compute cost
-                        Cost = 0,
+                        AddedEdges = edgesAdded,
+                        Cost = this.costFinder.GetCost(newSolution) +
+                            // TODO współczynnik
+                            this.longTermMemory.numberRecurrences(edgesAdded),
                         NewSolution = newSolution
                     });
                 }
