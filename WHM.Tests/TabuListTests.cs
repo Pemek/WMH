@@ -16,59 +16,59 @@ namespace WHM.Tests
         public void IsOntabuList_WithEmptyTabuList_ReturnsFalse()
         {
             // arrange
-            var list = this.CreateEdgeList(1);
+            var addedEdges = this.CreateAddedEdges();
             // act
             // assert
-            Assert.IsFalse(this.AddElementsAndCheck(new List<IList<Edge>>(), 10, list));
+            Assert.IsFalse(this.AddElementsAndCheck(new List<EdgesAdded>(), 10, addedEdges));
         }
 
         [Test]
         public void IsOntabuList_WhenElementNotOnTabuList_RetunsFalse()
         {
             // arrange
-            var list = this.CreateEdgeList(1);
-            var list2 = this.CreateEdgeList(1);
+            var addedEdges1 = this.CreateAddedEdges();
+            var addedEdges2 = this.CreateAddedEdges();
             // act
             // assert
-            Assert.IsFalse(this.AddElementsAndCheck(new List<IList<Edge>> { list }, 10, list2));
+            Assert.IsFalse(this.AddElementsAndCheck(new List<EdgesAdded> { addedEdges1 }, 10, addedEdges2));
         }
 
         [Test]
         public void IsOnTabuList_WhenElementIsOnList_ReturnsTrue()
         {
             // arrange
-            var list = this.CreateEdgeList(1);
-            var list2 = new List<Edge>{ new Edge(list[0].End, list[0].Start) };
+            var addedEdges1 = this.CreateAddedEdges();
+            var addedEdges2 = this.CreateAddedEdges();
             // act
             // assert
-            Assert.IsTrue(this.AddElementsAndCheck(new List<IList<Edge>> { list }, 10, list2));
+            Assert.IsTrue(this.AddElementsAndCheck(new List<EdgesAdded> { addedEdges1, addedEdges2 }, 10, addedEdges1));
         }
 
         [Test]
         public void AddChange_WhenAddElement_AddsElement()
         {
             // arrange
-            var list = this.CreateEdgeList(2);
+            var addedEdges = this.CreateAddedEdges();
             // act
             // assert
-            Assert.IsTrue(this.AddElementsAndCheck(new List<IList<Edge>>{ list }, 10, list));
+            Assert.IsTrue(this.AddElementsAndCheck(new List<EdgesAdded>{ addedEdges }, 10, addedEdges));
         }
 
         [Test]
         public void AddChange_WhenMaxSize_FirstElementRemoved()
         {
             // arrange
-            var list = new List<IList<Edge>>();
-            for (int i = 0; i < 2; i++)
+            var list = new List<EdgesAdded>();
+            for (int i = 0; i < 10; i++)
             {
-                list.Add(this.CreateEdgeList(2));
+                list.Add(this.CreateAddedEdges());
             }
             // act
             // assert
-            Assert.IsFalse(this.AddElementsAndCheck(list, 1, list[0]));
+            Assert.IsFalse(this.AddElementsAndCheck(list, 5, list[0]));
         }
 
-        private bool AddElementsAndCheck(IList<IList<Edge>> elementsToAdd, int tabuListSize, IList<Edge> elementToCheck)
+        private bool AddElementsAndCheck(IList<EdgesAdded> elementsToAdd, int tabuListSize, EdgesAdded elementToCheck)
         {
             var tabuList = new TabuList(tabuListSize);
             foreach (var element in elementsToAdd)
@@ -78,15 +78,15 @@ namespace WHM.Tests
             return tabuList.IsOntabuList(elementToCheck);
         }
 
-        private IList<Edge> CreateEdgeList(int count)
+        private EdgesAdded CreateAddedEdges()
         {
-            IList<Edge> result = new List<Edge>();
+            return new EdgesAdded(this.CreateEdge(), this.CreateEdge());
+        }
+
+        private Edge CreateEdge()
+        {
             var random = new Random();
-            for (var i = 0; i < count; i++)
-            {
-                result.Add(new Edge(new Vertex(random.NextDouble(), random.NextDouble()), new Vertex(random.NextDouble(), random.NextDouble())));
-            }
-            return result;
+            return new Edge(new Vertex(random.NextDouble(), random.NextDouble()), new Vertex(random.NextDouble(), random.NextDouble()));
         }
     }
 }

@@ -16,12 +16,12 @@ namespace WMH.TabuSearch
         /// </summary>
         /// <param name="addedEdges">List of 2 added edges.</param>
         /// <returns>True if given edges change is on tabu list.</returns>
-        bool IsOntabuList(IList<Edge> addedEdges);
+        bool IsOntabuList(EdgesAdded addedEdges);
 
         /// <summary>
         /// Adds list of 2 edges to tabu list.
         /// </summary>
         /// <param name="addedEdges">List of 2 edges that were added to solution and should be added to tabu list.</param>
-        void AddChange(IList<Edge> addedEdges);
+        void AddChange(EdgesAdded addedEdges);
     }
 }

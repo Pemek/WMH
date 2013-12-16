@@ -10,7 +10,7 @@ namespace WMH.TabuSearch
 {
     public class TabuList : ITabuList
     {
-        private IList<IList<Edge>> tabuList = new List<IList<Edge>>();
+        private IList<EdgesAdded> tabuList = new List<EdgesAdded>();
 
         private int maxSize;
 
@@ -23,11 +23,11 @@ namespace WMH.TabuSearch
             this.maxSize = maxSize;
         }
 
-        public bool IsOntabuList(IList<Model.Edge> addedEdges)
+        public bool IsOntabuList(EdgesAdded addedEdges)
         {
-            foreach (var subList in tabuList)
+            foreach (var element in tabuList)
             {
-                if (this.CompareLists(subList, addedEdges))
+                if (element.AreEqual(addedEdges))
                 {
                     return true;
                 }
@@ -35,28 +35,7 @@ namespace WMH.TabuSearch
             return false;
         }
 
-        private bool CompareLists(IList<Edge> subList, IList<Edge> addedEdges)
-        {
-            if (subList.Count != addedEdges.Count)
-            {
-                return false;
-            }
-
-            foreach (var edge in addedEdges)
-            {
-                var foundEdge = subList.FirstOrDefault(e => e.AreEqual(edge));
-
-                //  NOTICE: elements in added edge should be unique
-                if (foundEdge == null)
-                {
-                    return false;
-                }
-            }
-
-            return true;
-        }
-
-        public void AddChange(IList<Model.Edge> addedEdges)
+        public void AddChange(EdgesAdded addedEdges)
         {
             // NOTICE: elements in addedEdges should be unique.
 

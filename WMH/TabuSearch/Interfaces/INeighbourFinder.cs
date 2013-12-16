@@ -6,20 +6,11 @@ using WMH.Model;
 
 namespace WMH.TabuSearch
 {
-    public class Change
-    {
-        // They should have only 2 elements
-        public IList<Edge> AddedEdges { get; set; }
-        // TODO check if it's necessary
-        public IList<Edge> DeletedEdges { get; set; }
-    }
-
     public class Neighbour
     {
-        // TODO check if it's necessary
         public IList<Edge> NewSolution { get; set; }
         public double Cost { get; set; }
-        public Change ChangeMade { get; set; }
+        public EdgesAdded AddedEdges { get; set; }
     }
 
     public interface INeighbourFinder
@@ -28,11 +19,9 @@ namespace WMH.TabuSearch
         /// Finds neighbours of given solution.
         /// </summary>
         /// <param name="solution">Solution to find neighbours of.</param>
-        /// <param name="firstGraph">One of the graphs.</param>
-        /// <param name="secondGraph">Second of graphs.</param>
         /// <returns></returns>
         /// 
         // TODO Remember to take long ter memory into account, when computing neighbour cost.
-        IList<Neighbour> FindNeighbours(IList<Edge> solution, Graph firstGraph, Graph secondGraph);
+        IList<Neighbour> FindNeighbours(IList<Edge> solution);
     }
 }

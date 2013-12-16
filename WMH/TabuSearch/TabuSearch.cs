@@ -43,14 +43,14 @@ namespace WMH.TabuSearch
             Neighbour selectedNeighbour = null;
             while (!this.stopCriteria.IsCriteriaMeet())
             {
-                selectedNeighbour = this.FindBestNeighbour(actualSolution, bestSolution, firstGraph, secondGraph);
+                selectedNeighbour = this.FindBestNeighbour(actualSolution, bestSolution);
                 if (selectedNeighbour == null)
                 {
                     throw new Exception("No best neighbour found");
                 }
-                this.tabuList.AddChange(selectedNeighbour.ChangeMade.AddedEdges);
-                //todo tutaj ponizsza linia kodu sie nie kompiluje bo inna jest implementyacja addChange
-                //this.longTermMemory.AddChange(selectedNeighbour.ChangeMade.AddedEdges);
+                this.tabuList.AddChange(selectedNeighbour.AddedEdges);
+                
+                this.longTermMemory.AddChange(selectedNeighbour.AddedEdges);
                 actualSolution = selectedNeighbour.NewSolution;
                 if (this.costFinder.GetCost(actualSolution) < this.costFinder.GetCost(bestSolution))
                 {
@@ -67,19 +67,17 @@ namespace WMH.TabuSearch
         /// </summary>
         /// <param name="actualSolution">Actual solution to find neighbours of.</param>
         /// <param name="bestSolution">Best found solution so far.</param>
-        /// <param name="firstGraph">First graph</param>
-        /// <param name="secondGraph">Second graph</param>
         /// <returns>Best found neighbour</returns>
-        private Neighbour FindBestNeighbour(IList<Edge> actualSolution, IList<Edge> bestSolution, Graph firstGraph, Graph secondGraph)
+        private Neighbour FindBestNeighbour(IList<Edge> actualSolution, IList<Edge> bestSolution)
         {
-            var neighbours = this.neighbourFinder.FindNeighbours(actualSolution, firstGraph, secondGraph);
+            var neighbours = this.neighbourFinder.FindNeighbours(actualSolution);
 
             // Order by descending cost ensures, that nighbours will be checked from best to the worst. 
             foreach (var neighbour in neighbours.OrderByDescending(n => n.Cost))
             {
                 // is on tabu, but meets aspiration criteria, or is not on tabu list.
-                if ((this.tabuList.IsOntabuList(neighbour.ChangeMade.AddedEdges) && this.aspirationCriteria.IsCriteriaMeet(neighbour, bestSolution))
-                    || !this.tabuList.IsOntabuList(neighbour.ChangeMade.AddedEdges))
+                if ((this.tabuList.IsOntabuList(neighbour.AddedEdges) && this.aspirationCriteria.IsCriteriaMeet(neighbour, bestSolution))
+                    || !this.tabuList.IsOntabuList(neighbour.AddedEdges))
                 {
                     return neighbour;
                 }
