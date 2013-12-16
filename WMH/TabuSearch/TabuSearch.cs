@@ -59,7 +59,7 @@ namespace WMH.TabuSearch
                 this.stopCriteria.FoundNextSolution(actualSolution);
             }
 
-            return actualSolution;
+            return bestSolution;
         }
 
         /// <summary>
