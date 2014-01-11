@@ -13,5 +13,22 @@ namespace WMH
     /// </summary>
     public partial class App : Application
     {
+        private void Application_Startup(object sender, StartupEventArgs e)
+        {
+            //no arguments start with main window
+            if (e.Args == null || e.Args.Length == 0)
+            {
+                View.MainWindow mw = new View.MainWindow();
+                mw.Show();
+            }
+            else
+                Application.Current.Shutdown();
+
+        }
+        private void Application_Exit(object sender, ExitEventArgs e)
+        {
+        }
     }
+
+    
 }
