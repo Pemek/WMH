@@ -8,6 +8,9 @@ namespace WMH.Model.GraphGenerator
 {
     public static class GraphGenerator
     {
+        static double max = 100;
+        static double min = 0;
+        static Random rand = new Random();
         public static Graph generateGraph(int numberOfVertex)
         {
             Graph newGraph = generateVertex(numberOfVertex);
@@ -19,12 +22,15 @@ namespace WMH.Model.GraphGenerator
         static private Graph generateVertex(int numberOfVertex)
         {
             Graph newGraph = new Graph();
-            Random rand = new Random();
+            //Random rand = new Random();
             for (int i = 0; i < numberOfVertex; i++)
             {
-                Vertex newVertex = new Vertex(rand.NextDouble(), rand.NextDouble());
-                if(itsAlreadyOnEdgesList(newVertex, ref newGraph))
+                Vertex newVertex = new Vertex((rand.NextDouble()*(max-min) + min), (rand.NextDouble()*(max-min)+min));
+                if (itsAlreadyOnEdgesList(newVertex, ref newGraph))
+                {
+                    i--;
                     continue;
+                }
                 newGraph.Vertexes.Add(newVertex);
             }
             return newGraph;

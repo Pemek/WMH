@@ -16,5 +16,42 @@ namespace WMH.Model
             this.Edges = new List<Edge>();
             this.Vertexes = new List<Vertex>();
         }
+        public double findBiggestX()
+        {
+            try
+            {
+                double result = 0;
+                foreach (Vertex vertex in Vertexes)
+                {
+                    if (vertex.X > result)
+                        result = vertex.X;
+                }
+                return result;
+            }
+            catch (Exception)
+            {
+                
+                throw;
+            }
+            
+        }
+        public double findBiggestY()
+        {
+            try
+            {
+                double result = 0;
+                foreach (Vertex vertex in Vertexes)
+                {
+                    if (vertex.Y > result)
+                        result = vertex.Y;
+                }
+                return result;
+            }
+            catch (Exception)
+            {
+                
+                throw;
+            }
+        }
     }
 }

@@ -4,7 +4,10 @@
         Title="MainWindow" Height="350" Width="525">
     <Grid>
         <Button x:Name="buttonGenerateGraph1" Content="Graf 1" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="75" Click="buttonGraph1Click"/>
-        <Button x:Name="buttonGenerateGraph2" Content="Graf 2" HorizontalAlignment="Left" Margin="10,37,0,0" VerticalAlignment="Top" Width="75" Click="buttonGraph1Click"/>
+        <Button x:Name="buttonGenerateGraph2" Content="Graf 2" HorizontalAlignment="Left" Margin="10,37,0,0" VerticalAlignment="Top" Width="75" Click="buttonGraph2Click"/>
+        <Button Content="start" HorizontalAlignment="Left" Margin="102,21,0,0" VerticalAlignment="Top" Width="75" Click="startAlg"/>
+        <Button Content="parametry algorytmu" HorizontalAlignment="Left" Margin="221,21,0,0" VerticalAlignment="Top" Width="75" Click="parametersAlg"/>
+        <Button Content="Pokaż wynik" HorizontalAlignment="Left" Margin="360,32,0,0" VerticalAlignment="Top" Width="75" Click="showResultGraph"/>
 
     </Grid>
 </Window>

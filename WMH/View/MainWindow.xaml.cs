@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WMH.Model;
+using WMH.TabuSearch;
 
 namespace WMH.View
 {
@@ -23,35 +24,102 @@ namespace WMH.View
     {   
         private Graph Graph1;
         private Graph Graph2;
+        private Graph resultGraph;
+        private LongTermMemory ltm;
+        private TabuList tl;
+        private IterationStopCriteria isc;
+        IList<Edge> result;
         public MainWindow()
         {
             InitializeComponent();
-
-            Graph1 = WMH.Model.GraphGenerator.GraphGenerator.generateGraph(10);
-            Graph2 = WMH.Model.GraphGenerator.GraphGenerator.generateGraph(10);
-            
-            WMH.TabuSearch.CostFinder cf = new TabuSearch.CostFinder();
-            WMH.TabuSearch.LongTermMemory ltm = new TabuSearch.LongTermMemory(10);
-            WMH.TabuSearch.NeighbourFinder nf = new TabuSearch.NeighbourFinder(cf,ltm); 
-            WMH.TabuSearch.TabuList tl = new TabuSearch.TabuList(10);
-            WMH.TabuSearch.IterationStopCriteria isc = new TabuSearch.IterationStopCriteria(100);
-            WMH.TabuSearch.Implementation.AspirationCriteria ac = new TabuSearch.Implementation.AspirationCriteria(cf);
-
-            WMH.TabuSearch.TabuSearch alg = new TabuSearch.TabuSearch(nf, tl, ltm, cf, ac, isc);
-            IList<Model.Edge> result = alg.FindSolution(Graph1, Graph2);
-            string s;
-            s = "";
+            test();
         }
 
         private void buttonGraph1Click(object sender, EventArgs e)
         {
             GraphView gv = new GraphView(ref Graph1);
-            gv.ShowDialog();
+            gv.Show();
+            Graph1 = gv.newGraph;
         }
         private void buttonGraph2Click(object sender, EventArgs e)
         {
             GraphView gv = new GraphView(ref Graph2);
-            gv.ShowDialog();
+            gv.Show();
+            Graph2 = gv.newGraph;
+        }
+
+        private void startAlg(object sender, EventArgs e)
+        {
+            try
+            {
+                if (Graph1 == null || Graph2 == null)
+                {
+                    MessageBox.Show("Dane wejsciowe zawieraja bledy");
+                }
+                else
+                {
+                    WMH.TabuSearch.CostFinder cf = new TabuSearch.CostFinder();
+                    WMH.TabuSearch.NeighbourFinder nf = new TabuSearch.NeighbourFinder(cf, ltm);
+                    WMH.TabuSearch.Implementation.AspirationCriteria ac = new TabuSearch.Implementation.AspirationCriteria(cf);
+                    WMH.TabuSearch.TabuSearch alg = new TabuSearch.TabuSearch(nf, tl, ltm, cf, ac, isc);
+                    result = alg.FindSolution(Graph1, Graph2);
+
+                }
+            }
+            catch (Exception)
+            {
+                
+                throw;
+            }
+            
+        }
+        private void parametersAlg(object sender, EventArgs e)
+        {
+            try
+            {
+                AlgorithmParametersView apv = new AlgorithmParametersView();
+                apv.ShowDialog();
+                ltm = new LongTermMemory(apv.longTermMemory);
+                tl = new TabuList(apv.tabuList);
+                isc = new IterationStopCriteria(apv.IterationStopCrit);
+            }
+            catch (Exception)
+            {
+                
+                throw;
+            }
+            
+        }
+
+        private void showResultGraph(object sender, EventArgs e)
+        {
+            try
+            {
+                test();
+                ResultGraphView rgv = new ResultGraphView(Graph1, Graph2, result);
+                rgv.Show();
+            }
+            catch (Exception)
+            {
+                
+                throw;
+            }
+        }
+
+        private void test()
+        {
+            Graph1 = WMH.Model.GraphGenerator.GraphGenerator.generateGraph(4);
+            Graph2 = WMH.Model.GraphGenerator.GraphGenerator.generateGraph(4);
+
+            ltm = new LongTermMemory(10);
+            tl = new TabuList(10);
+            isc = new IterationStopCriteria(100);
+            
+            WMH.TabuSearch.CostFinder cf = new TabuSearch.CostFinder();
+            WMH.TabuSearch.NeighbourFinder nf = new TabuSearch.NeighbourFinder(cf, ltm);
+            WMH.TabuSearch.Implementation.AspirationCriteria ac = new TabuSearch.Implementation.AspirationCriteria(cf);
+            WMH.TabuSearch.TabuSearch alg = new TabuSearch.TabuSearch(nf, tl, ltm, cf, ac, isc);
+            result = alg.FindSolution(Graph1, Graph2);
         }
     }
 }
