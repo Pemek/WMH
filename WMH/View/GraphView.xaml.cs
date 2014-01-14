@@ -38,10 +38,10 @@ namespace WMH.View
                 canvasBackground.Children.Clear();
                 Height = canvasBackground.Height;
                 Width = canvasBackground.Width;
-                double biggestX = graph.findBiggestX();
-                double biggestY = graph.findBiggestY();
+                double biggestX = 100;// graph.findBiggestX();
+                double biggestY = 100;// graph.findBiggestY();
 
-                drawEdges(graph, biggestX, biggestY);
+                //drawEdges(graph, biggestX, biggestY);
                 drawVertexs(graph, biggestX, biggestY);
             }
             catch (Exception)

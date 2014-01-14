@@ -48,8 +48,8 @@ namespace WMH.View
                 double x2 = Graph2.findBiggestX();
                 double y2 = Graph2.findBiggestY();
 
-                double maxX = x1 + x2;
-                double maxY = (y1>y2 ? y1 : y2);
+                double maxX = 100;// (x1 > x2 ? x1 : x2);// x1 + x2;
+                double maxY = 100;// (y1 > y2 ? y1 : y2);
 
                 drawVertexs(Graph1, maxX, maxY, 0, Brushes.Blue);
                 drawVertexs(Graph2, maxX, maxY, 0/*2 * (Width / 3)*/, Brushes.Red);
@@ -67,7 +67,7 @@ namespace WMH.View
             {
                 foreach (Vertex vert in graph.Vertexes)
                 {
-                    Point point = new Point(vert.X, vert.Y, Height, Width/3, biggestX, biggestY);
+                    Point point = new Point(vert.X, vert.Y, Height, Width, biggestX, biggestY);
                     Rectangle rect = new Rectangle { Stroke = brush, StrokeThickness = point.size };
                     Canvas.SetLeft(rect, point.positionX + shiftX);
                     Canvas.SetTop(rect, point.positionY);
@@ -87,8 +87,8 @@ namespace WMH.View
             {
                 foreach (WMH.Model.Edge ed in result)
                 {
-                    Point startPoint = new Point(ed.Start.X, ed.Start.Y, Height, Width/3, biggestX, biggestY);
-                    Point endPoint = new Point(ed.End.X, ed.End.Y, Height, Width/3, biggestX, biggestY);
+                    Point startPoint = new Point(ed.Start.X, ed.Start.Y, Height, Width, biggestX, biggestY);
+                    Point endPoint = new Point(ed.End.X, ed.End.Y, Height, Width, biggestX, biggestY);
 
                     Line line = new Line { Stroke = Brushes.Green, StrokeThickness = 2, X1 = startPoint.positionX + shiftX, Y1 = startPoint.positionY, Y2 = endPoint.positionY, X2 = endPoint.positionX };
                     canvasBackground.Children.Add(line);

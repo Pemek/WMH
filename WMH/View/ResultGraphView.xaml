@@ -1,9 +1,9 @@
 ﻿<Window x:Class="WMH.View.ResultGraphView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="ResultGraphView" Height="300" Width="300">
+        Title="Graf wynikowy" Height="500" Width="450">
     <Grid>
-        <Canvas x:Name="canvasBackground" HorizontalAlignment="Left" Height="250" Margin="10,10,0,0" VerticalAlignment="Top" Width="272"/>
+        <Canvas x:Name="canvasBackground" HorizontalAlignment="Left" Height="400" Margin="22,40,0,0" VerticalAlignment="Top" Width="400"/>
 
     </Grid>
 </Window>
