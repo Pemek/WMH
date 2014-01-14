@@ -29,7 +29,10 @@ namespace WMH.View
         private LongTermMemory ltm;
         private TabuList tl;
         private IterationStopCriteria isc;
-        IList<Edge> result;
+        private IList<Edge> result;
+        private WMH.TabuSearch.TabuSearch alg;
+
+        BackgroundWorker progressWorker;
         public MainWindow()
         {
             InitializeComponent();
@@ -61,14 +64,34 @@ namespace WMH.View
                     MessageBox.Show("Grafy są różnych rozmiarów");
                 else
                 {
+                    WMH.TabuSearch.CostFinder cf = new TabuSearch.CostFinder();
+                    WMH.TabuSearch.NeighbourFinder nf = new TabuSearch.NeighbourFinder(cf, ltm);
+                    WMH.TabuSearch.Implementation.AspirationCriteria ac = new TabuSearch.Implementation.AspirationCriteria(cf);
+                    /*WMH.TabuSearch.TabuSearch*/ alg = new TabuSearch.TabuSearch(nf, tl, ltm, cf, ac, isc);
+
+                    progressBar1.Minimum = 0;
+                    progressBar1.Maximum = isc.MaxIterations;
+
                     buttonResult.IsEnabled = false;
                     BackgroundWorker bw = new BackgroundWorker();
                     bw.WorkerReportsProgress = true;
                     bw.DoWork += BackgroundWorkerDoWork;
-                    bw.ProgressChanged += BackgroundWorkerProgress;
                     bw.RunWorkerCompleted += BackgroundWorkerComplete;
 
+                    /*BackgroundWorker*/ progressWorker = new BackgroundWorker();
+                    progressWorker.WorkerReportsProgress = true;
+                    progressWorker.WorkerSupportsCancellation = true;
+                    progressWorker.DoWork += ProgressWorkerDoWork;
+                    progressWorker.ProgressChanged += ProgressWorkerProgress;
+                    
+                    progressWorker.RunWorkerAsync();
+                    int t = 0;
                     bw.RunWorkerAsync();
+                    //for (int i = 0; i < 10; i++)
+                    //{
+                    //    t = alg.test;
+                    //    System.Threading.Thread.Sleep(1000);
+                    //}
                     //WMH.TabuSearch.CostFinder cf = new TabuSearch.CostFinder();
                     //WMH.TabuSearch.NeighbourFinder nf = new TabuSearch.NeighbourFinder(cf, ltm);
                     //WMH.TabuSearch.Implementation.AspirationCriteria ac = new TabuSearch.Implementation.AspirationCriteria(cf);
@@ -120,28 +143,35 @@ namespace WMH.View
             ltm = new LongTermMemory(10);
             tl = new TabuList(10);
             isc = new IterationStopCriteria(100);
-            
-            //WMH.TabuSearch.CostFinder cf = new TabuSearch.CostFinder();
-            //WMH.TabuSearch.NeighbourFinder nf = new TabuSearch.NeighbourFinder(cf, ltm);
-            //WMH.TabuSearch.Implementation.AspirationCriteria ac = new TabuSearch.Implementation.AspirationCriteria(cf);
-            //WMH.TabuSearch.TabuSearch alg = new TabuSearch.TabuSearch(nf, tl, ltm, cf, ac, isc);
-            //result = alg.FindSolution(Graph1, Graph2);
         }
 
         private void BackgroundWorkerDoWork(object sender, EventArgs e)
         {
-            WMH.TabuSearch.CostFinder cf = new TabuSearch.CostFinder();
-            WMH.TabuSearch.NeighbourFinder nf = new TabuSearch.NeighbourFinder(cf, ltm);
-            WMH.TabuSearch.Implementation.AspirationCriteria ac = new TabuSearch.Implementation.AspirationCriteria(cf);
-            WMH.TabuSearch.TabuSearch alg = new TabuSearch.TabuSearch(nf, tl, ltm, cf, ac, isc);
             result = alg.FindSolution(Graph1, Graph2);
-        }
-        private void BackgroundWorkerProgress(object sender, EventArgs e)
-        {
         }
         private void BackgroundWorkerComplete(object sender, EventArgs e)
         {
             buttonResult.IsEnabled = true;
+            progressBar1.Value = progressBar1.Maximum;
+            progressWorker.CancelAsync();
+        }
+
+        private void ProgressWorkerDoWork(object sender, EventArgs e)
+        {
+            while (true)
+            {
+                BackgroundWorker b = sender as BackgroundWorker;
+                if (b.CancellationPending)
+                {
+                    return;
+                }
+                b.ReportProgress(alg.progress);
+                System.Threading.Thread.Sleep(1000);
+            }
+        }
+        private void ProgressWorkerProgress(object sender, ProgressChangedEventArgs e)
+        {
+            progressBar1.Value = alg.progress;
         }
 
     }

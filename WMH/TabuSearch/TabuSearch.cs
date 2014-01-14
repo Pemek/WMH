@@ -15,6 +15,7 @@ namespace WMH.TabuSearch
         private ICostFinder costFinder;
         private IAspirationCriteria aspirationCriteria;
         private IStopCriteria stopCriteria;
+        public int progress=0;
 
         public TabuSearch(INeighbourFinder neighbourFinder, ITabuList tabuList, ILongTermMemory longTermMemory, ICostFinder costFinder, IAspirationCriteria aspirationCriteria, IStopCriteria stopCriteria)
         {
@@ -57,6 +58,7 @@ namespace WMH.TabuSearch
                     bestSolution = actualSolution;
                 }
                 this.stopCriteria.FoundNextSolution(actualSolution);
+                this.progress = stopCriteria.CurrentCritera();
             }
 
             return bestSolution;

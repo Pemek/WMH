@@ -34,5 +34,11 @@ namespace WMH.TabuSearch
         {
             this.ActualIteration = 0;
         }
+
+
+        public int CurrentCritera()
+        {
+            return this.ActualIteration;
+        }
     }
 }

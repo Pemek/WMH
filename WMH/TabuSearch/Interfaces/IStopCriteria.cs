@@ -25,5 +25,7 @@ namespace WMH.TabuSearch
         /// </summary>
         /// <param name="solution">Initial solution.</param>
         void InitialSolution(IList<Edge> solution);
+
+        int CurrentCritera();
     }
 }
