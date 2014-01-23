@@ -15,9 +15,13 @@ namespace WMH.TabuSearch
         private ICostFinder costFinder;
         private IAspirationCriteria aspirationCriteria;
         private IStopCriteria stopCriteria;
+        private IStopCriteria noChange;
+        private IStopCriteria costLessThan;
         public int progress=0;
 
-        public TabuSearch(INeighbourFinder neighbourFinder, ITabuList tabuList, ILongTermMemory longTermMemory, ICostFinder costFinder, IAspirationCriteria aspirationCriteria, IStopCriteria stopCriteria)
+        private int stopCriteriaChanges;
+
+        public TabuSearch(INeighbourFinder neighbourFinder, ITabuList tabuList, ILongTermMemory longTermMemory, ICostFinder costFinder, IAspirationCriteria aspirationCriteria, IStopCriteria stopCriteria, IStopCriteria noChange, IStopCriteria costLessThan)
         {
             this.neighbourFinder = neighbourFinder;
             this.tabuList = tabuList;
@@ -25,6 +29,8 @@ namespace WMH.TabuSearch
             this.costFinder = costFinder;
             this.aspirationCriteria = aspirationCriteria;
             this.stopCriteria = stopCriteria;
+            this.noChange = noChange;
+            this.costLessThan = costLessThan;
         }
 
         /// <summary>
@@ -40,9 +46,11 @@ namespace WMH.TabuSearch
             IList<Edge> bestSolution = actualSolution;
 
             this.stopCriteria.InitialSolution(actualSolution);
+            this.noChange.InitialSolution(actualSolution);
+            this.costLessThan.InitialSolution(actualSolution);
 
             Neighbour selectedNeighbour = null;
-            while (!this.stopCriteria.IsCriteriaMeet())
+            while (!this.stopCriteria.IsCriteriaMeet() && !this.noChange.IsCriteriaMeet() && !this.costLessThan.IsCriteriaMeet())
             {
                 selectedNeighbour = this.FindBestNeighbour(actualSolution, bestSolution);
                 if (selectedNeighbour == null)
@@ -53,9 +61,20 @@ namespace WMH.TabuSearch
                 
                 this.longTermMemory.AddChange(selectedNeighbour.AddedEdges);
                 actualSolution = selectedNeighbour.NewSolution;
+                //double best = this.costFinder.GetCost(bestSolution);
+                //double actual = this.costFinder.GetCost(actualSolution);
+
                 if (this.costFinder.GetCost(actualSolution) < this.costFinder.GetCost(bestSolution))
                 {
+                    //Console.WriteLine("actual solution " + actual + " < " + best);
                     bestSolution = actualSolution;
+                    noChange.InitialSolution(bestSolution);
+                    costLessThan.InitialSolution(bestSolution);
+                }
+                else
+                {
+                    //Console.WriteLine("best " + actual + " >= " + best);
+                    noChange.FoundNextSolution(actualSolution);
                 }
                 this.stopCriteria.FoundNextSolution(actualSolution);
                 this.progress = stopCriteria.CurrentCritera();
@@ -105,6 +124,11 @@ namespace WMH.TabuSearch
                 result.Add(new Edge(firstGraph.Vertexes[i], secondGraph.Vertexes[i]));
             }
             return result;
+        }
+
+        private void StopAlgorithmNochanges()
+        { 
+
         }
     }
 }

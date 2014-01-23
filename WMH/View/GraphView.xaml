@@ -4,9 +4,11 @@
         Title="Graf" Height="500" Width="450">
     <Grid x:Name="gridView">
         <Button x:Name="buttonGenerateGraph" Content="generuj graf" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="75" Click="generateGraph"/>
-        <TextBox x:Name="textBoxVertex" HorizontalAlignment="Left" Height="23" Margin="90,9,0,0" TextWrapping="Wrap" Text="10" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="textBoxVertex" HorizontalAlignment="Left" Height="23" Margin="90,9,0,0" TextWrapping="Wrap" Text="10" VerticalAlignment="Top" Width="64"/>
         <Canvas x:Name="canvasBackground" HorizontalAlignment="Left" Height="400" Margin="21,49,0,0" VerticalAlignment="Top" Width="400"/>
-        <Button x:Name="buttonShowGraph" Content="pokaż" HorizontalAlignment="Left" Margin="215,9,0,0" VerticalAlignment="Top" Width="75" Click="showGraph"/>
+        <Button x:Name="buttonShowGraph" Content="pokaż" HorizontalAlignment="Left" Margin="163,9,0,0" VerticalAlignment="Top" Width="75" Click="showGraph"/>
+        <Button Content="Zapisz" HorizontalAlignment="Left" Margin="243,10,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+        <Button Content="Wczytaj" HorizontalAlignment="Left" Margin="323,9,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_1"/>
 
     </Grid>
 </Window>

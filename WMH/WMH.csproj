@@ -72,6 +72,8 @@
     </ApplicationDefinition>
     <Compile Include="Model\Comparators\EdgeComparator.cs" />
     <Compile Include="Model\Comparators\EdgesAddComparator.cs" />
+    <Compile Include="Model\FileOperation\FileOperationGraph.cs" />
+    <Compile Include="Model\FileOperation\FileOperationResult.cs" />
     <Compile Include="Model\Graph\GraphGenerator.cs" />
     <Compile Include="Model\EdgesAdded.cs" />
     <Compile Include="Resources\Resource.Designer.cs">
@@ -79,10 +81,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
+    <Compile Include="TabuSearch\Implementation\CostStopCriteria.cs" />
     <Compile Include="TabuSearch\Implementation\LongTermMemory.cs" />
     <Compile Include="TabuSearch\Implementation\AspirationCriteria.cs" />
     <Compile Include="TabuSearch\Implementation\CostFinder.cs" />
     <Compile Include="TabuSearch\Implementation\NeighbourFinder.cs" />
+    <Compile Include="TabuSearch\Implementation\NoChangesStopCriteria.cs" />
     <Compile Include="TabuSearch\Interfaces\IAspirationCriteria.cs" />
     <Compile Include="TabuSearch\Interfaces\ICostFinder.cs" />
     <Compile Include="TabuSearch\Interfaces\ILongTermMemory.cs" />

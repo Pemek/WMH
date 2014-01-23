@@ -23,13 +23,16 @@ namespace WMH.View
         public int longTermMemory { get; set; }
         public int tabuList { get; set; }
         public int IterationStopCrit { get; set; }
+        public int NoChangeStopCrit { get; set; }
+        public double CostCrit { get; set; }
         public AlgorithmParametersView()
         {
             InitializeComponent();
         }
         private void saveParameters(object sender, EventArgs e)
         {
-            int longInt, tabuInt, IterationInt;
+            int longInt, tabuInt, IterationInt, noChage;
+            double limitCost;
             bool convertFailFlag = false;
             if (!Int32.TryParse(textBoxLongMemory.Text, out longInt))
                 convertFailFlag = true;
@@ -37,7 +40,12 @@ namespace WMH.View
                 convertFailFlag = true;
             if (!Int32.TryParse(textBoxIterationCriteria.Text, out IterationInt))
                 convertFailFlag = true;
-
+            if (!Int32.TryParse(textBoxNoChangeCriteria.Text, out noChage))
+                convertFailFlag = true;
+            if (!double.TryParse(textBoxCostCriteria.Text, out limitCost))
+            {
+                convertFailFlag = true;
+            }
             if (convertFailFlag)
             {
                 string message = Resource.ResourceManager.GetString("IncorrectValue");
@@ -48,6 +56,8 @@ namespace WMH.View
                 longTermMemory = longInt;
                 tabuList = tabuInt;
                 IterationStopCrit = IterationInt;
+                NoChangeStopCrit = noChage;
+                CostCrit = limitCost;
             }
         }
     }

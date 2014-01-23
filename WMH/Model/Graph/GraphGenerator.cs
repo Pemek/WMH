@@ -18,6 +18,11 @@ namespace WMH.Model.GraphGenerator
 
             return newGraph;
         }
+        public static Graph generateGraph(Graph graph)
+        {
+            createAllEdge(ref graph);
+            return graph;
+        }
 
         static private Graph generateVertex(int numberOfVertex)
         {

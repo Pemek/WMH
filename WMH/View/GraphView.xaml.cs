@@ -113,5 +113,27 @@ namespace WMH.View
         {
             drawGraph(newGraph);
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Microsoft.Win32.SaveFileDialog sfd = new Microsoft.Win32.SaveFileDialog();
+            bool? dialogResult = sfd.ShowDialog();
+            if(dialogResult.HasValue && dialogResult.Value)
+            {
+                WMH.Model.FileOperation.FileOperationGraph.SaveToFile(sfd.FileName, newGraph.Vertexes);
+            }
+            
+            
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            Microsoft.Win32.OpenFileDialog ofd = new Microsoft.Win32.OpenFileDialog();
+            bool? dialogResult = ofd.ShowDialog();
+            if (dialogResult.HasValue && dialogResult.Value)
+            {
+                newGraph = WMH.Model.FileOperation.FileOperationGraph.LoadFromFile(ofd.FileName);
+            }
+        }
     }
 }

@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WMH.Model;
 using WMH.TabuSearch;
+using WMH.TabuSearch.Implementation;
 
 namespace WMH.View
 {
@@ -29,6 +30,8 @@ namespace WMH.View
         private LongTermMemory ltm;
         private TabuList tl;
         private IterationStopCriteria isc;
+        private NoChangesStopCriteria ncsc;
+        private CostStopCriteria csc;
         private IList<Edge> result;
         private WMH.TabuSearch.TabuSearch alg;
 
@@ -67,7 +70,7 @@ namespace WMH.View
                     WMH.TabuSearch.CostFinder cf = new TabuSearch.CostFinder();
                     WMH.TabuSearch.NeighbourFinder nf = new TabuSearch.NeighbourFinder(cf, ltm);
                     WMH.TabuSearch.Implementation.AspirationCriteria ac = new TabuSearch.Implementation.AspirationCriteria(cf);
-                    /*WMH.TabuSearch.TabuSearch*/ alg = new TabuSearch.TabuSearch(nf, tl, ltm, cf, ac, isc);
+                    /*WMH.TabuSearch.TabuSearch*/ alg = new TabuSearch.TabuSearch(nf, tl, ltm, cf, ac, isc, ncsc, csc);
 
                     progressBar1.Minimum = 0;
                     progressBar1.Maximum = isc.MaxIterations;
@@ -114,6 +117,8 @@ namespace WMH.View
                 ltm = new LongTermMemory(apv.longTermMemory);
                 tl = new TabuList(apv.tabuList);
                 isc = new IterationStopCriteria(apv.IterationStopCrit);
+                ncsc = new NoChangesStopCriteria(apv.NoChangeStopCrit);
+                csc = new CostStopCriteria(apv.CostCrit);
             }
             catch (Exception)
             {
@@ -143,6 +148,8 @@ namespace WMH.View
             ltm = new LongTermMemory(10);
             tl = new TabuList(10);
             isc = new IterationStopCriteria(100);
+            ncsc = new NoChangesStopCriteria(10);
+            csc = new CostStopCriteria(1000);
         }
 
         private void BackgroundWorkerDoWork(object sender, EventArgs e)
