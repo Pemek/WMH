@@ -9,6 +9,19 @@ namespace WMH.Model.FileOperation
 {
     public static class FileOperationResult
     {
+        public static void SaveResultToFile(IList<Edge> resultEdges, string path)
+        {
+            string folderPath = CreateFolderPath(path);
+
+            using (System.IO.StreamWriter file = new System.IO.StreamWriter(path))
+            {
+                file.WriteLine(new WMH.TabuSearch.CostFinder().GetCost(resultEdges));
+                foreach (Edge e in resultEdges)
+                {
+                    file.WriteLine(e.Start.X + " " + e.Start.Y + "   " + e.End.X + " " + e.End.Y);
+                }
+            }
+        }
         public static void SaveResultToFile(IList<Edge> resultEdges, string path, Stopwatch stopWatch)
         {
             string folderPath = CreateFolderPath(path);

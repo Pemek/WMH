@@ -181,5 +181,15 @@ namespace WMH.View
             progressBar1.Value = alg.progress;
         }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Microsoft.Win32.SaveFileDialog sfd = new Microsoft.Win32.SaveFileDialog();
+            bool? dialogResult = sfd.ShowDialog();
+            if (dialogResult.HasValue && dialogResult.Value)
+            {
+                WMH.Model.FileOperation.FileOperationResult.SaveResultToFile(result, sfd.FileName);
+            }
+        }
+
     }
 }

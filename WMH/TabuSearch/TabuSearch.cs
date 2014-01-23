@@ -94,7 +94,7 @@ namespace WMH.TabuSearch
             var neighbours = this.neighbourFinder.FindNeighbours(actualSolution);
 
             // Order by descending cost ensures, that nighbours will be checked from best to the worst. 
-            foreach (var neighbour in neighbours.OrderByDescending(n => n.Cost))
+            foreach (var neighbour in neighbours.OrderBy(n => n.Cost))
             {
                 // is on tabu, but meets aspiration criteria, or is not on tabu list.
                 if ((this.tabuList.IsOntabuList(neighbour.AddedEdges) && this.aspirationCriteria.IsCriteriaMeet(neighbour, bestSolution))
