@@ -27,9 +27,19 @@ namespace WMH.View
         private double Height;
 
 
-        public ResultGraphView(Graph _graph1, Graph _graph2, IList<Edge> _resultEdges)
+        public ResultGraphView(Graph _graph1, Graph _graph2, IList<Edge> _resultEdges, IList<double> costsList)
         {
             InitializeComponent();
+            ZedGraphControl.UserControl1 graph = new ZedGraphControl.UserControl1(costsList);
+            
+            //host.Child = graph;
+            hostXaml.Child = graph;
+
+            //grdMain.Children.Add(host);
+            graph.Width = 400;
+            graph.Height = 400;
+            this.Width = graph.Width + 2 * 20;
+            this.Height = graph.Height + 3 * 20;
             Graph1 = _graph1;
             Graph2 = _graph2;
             resultEdges = _resultEdges;

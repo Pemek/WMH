@@ -18,6 +18,7 @@ namespace WMH.TabuSearch
         private IStopCriteria noChange;
         private IStopCriteria costLessThan;
         public int progress=0;
+        public List<Double> costsList;
 
         private int stopCriteriaChanges;
 
@@ -44,7 +45,8 @@ namespace WMH.TabuSearch
         {
             IList<Edge> actualSolution = this.GenerateInitialSolution(firstGraph, secondGraph);
             IList<Edge> bestSolution = actualSolution;
-
+            costsList = new List<double>();
+            costsList.Add(this.costFinder.GetCost(bestSolution));
             this.stopCriteria.InitialSolution(actualSolution);
             this.noChange.InitialSolution(actualSolution);
             this.costLessThan.InitialSolution(actualSolution);
@@ -64,17 +66,22 @@ namespace WMH.TabuSearch
                 //double best = this.costFinder.GetCost(bestSolution);
                 //double actual = this.costFinder.GetCost(actualSolution);
 
-                if (this.costFinder.GetCost(actualSolution) < this.costFinder.GetCost(bestSolution))
+                double actualSolutionCost=-1, bestSolutionCost=-1;
+                actualSolutionCost = this.costFinder.GetCost(actualSolution);
+                bestSolutionCost = this.costFinder.GetCost(bestSolution);
+                if (actualSolutionCost < bestSolutionCost)
                 {
                     //Console.WriteLine("actual solution " + actual + " < " + best);
                     bestSolution = actualSolution;
                     noChange.InitialSolution(bestSolution);
                     costLessThan.InitialSolution(bestSolution);
+                    costsList.Add(actualSolutionCost);
                 }
                 else
                 {
                     //Console.WriteLine("best " + actual + " >= " + best);
                     noChange.FoundNextSolution(actualSolution);
+                    costsList.Add(bestSolutionCost);
                 }
                 this.stopCriteria.FoundNextSolution(actualSolution);
                 this.progress = stopCriteria.CurrentCritera();

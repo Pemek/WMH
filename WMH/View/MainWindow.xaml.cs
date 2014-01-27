@@ -33,6 +33,7 @@ namespace WMH.View
         private NoChangesStopCriteria ncsc;
         private CostStopCriteria csc;
         private IList<Edge> result;
+        private IList<double> costsList;
         private WMH.TabuSearch.TabuSearch alg;
 
         BackgroundWorker progressWorker;
@@ -131,7 +132,7 @@ namespace WMH.View
         {
             try
             {
-                ResultGraphView rgv = new ResultGraphView(Graph1, Graph2, result);
+                ResultGraphView rgv = new ResultGraphView(Graph1, Graph2, result, alg.costsList);
                 rgv.Show();
             }
             catch (Exception)
@@ -155,6 +156,7 @@ namespace WMH.View
         private void BackgroundWorkerDoWork(object sender, EventArgs e)
         {
             result = alg.FindSolution(Graph1, Graph2);
+            costsList = alg.costsList;
         }
         private void BackgroundWorkerComplete(object sender, EventArgs e)
         {
