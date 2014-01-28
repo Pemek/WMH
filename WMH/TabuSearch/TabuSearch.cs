@@ -46,7 +46,7 @@ namespace WMH.TabuSearch
             IList<Edge> actualSolution = this.GenerateInitialSolution(firstGraph, secondGraph);
             IList<Edge> bestSolution = actualSolution;
             costsList = new List<double>();
-            costsList.Add(this.costFinder.GetCost(bestSolution));
+            //costsList.Add(this.costFinder.GetCost(bestSolution));
             this.stopCriteria.InitialSolution(actualSolution);
             this.noChange.InitialSolution(actualSolution);
             this.costLessThan.InitialSolution(actualSolution);
@@ -69,19 +69,20 @@ namespace WMH.TabuSearch
                 double actualSolutionCost=-1, bestSolutionCost=-1;
                 actualSolutionCost = this.costFinder.GetCost(actualSolution);
                 bestSolutionCost = this.costFinder.GetCost(bestSolution);
+                costsList.Add(actualSolutionCost);
                 if (actualSolutionCost < bestSolutionCost)
                 {
                     //Console.WriteLine("actual solution " + actual + " < " + best);
                     bestSolution = actualSolution;
                     noChange.InitialSolution(bestSolution);
                     costLessThan.InitialSolution(bestSolution);
-                    costsList.Add(actualSolutionCost);
+                    //costsList.Add(actualSolutionCost);
                 }
                 else
                 {
                     //Console.WriteLine("best " + actual + " >= " + best);
                     noChange.FoundNextSolution(actualSolution);
-                    costsList.Add(bestSolutionCost);
+                    //costsList.Add(bestSolutionCost);
                 }
                 this.stopCriteria.FoundNextSolution(actualSolution);
                 this.progress = stopCriteria.CurrentCritera();
