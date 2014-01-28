@@ -35,7 +35,7 @@ namespace WHM.Tests
             this.aspirationCriteriaMock = new Mock<IAspirationCriteria>();
             this.stopCriteriaMock = new Mock<IStopCriteria>();
 
-            tabuSearch = new TabuSearch(this.neighbourFinderMock.Object, this.tabuListMock.Object, this.longTermMemoryMock.Object, this.costFinderMock.Object, this.aspirationCriteriaMock.Object, this.stopCriteriaMock.Object);
+            tabuSearch = new TabuSearch(this.neighbourFinderMock.Object, this.tabuListMock.Object, this.longTermMemoryMock.Object, this.costFinderMock.Object, this.aspirationCriteriaMock.Object, this.stopCriteriaMock.Object, this.stopCriteriaMock.Object, this.stopCriteriaMock.Object);
         }
 
         [Test]
