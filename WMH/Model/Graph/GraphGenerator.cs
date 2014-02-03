@@ -10,6 +10,7 @@ namespace WMH.Model.GraphGenerator
     {
         static double max = 100;
         static double min = 0;
+        //static Random rand = new Random(123873);
         static Random rand = new Random();
         public static Graph generateGraph(int numberOfVertex)
         {

@@ -50,8 +50,7 @@
       <LaunchMethod>Executable</LaunchMethod>
       <ExecutablePath>WMH\bin\Release\WMH.exe</ExecutablePath>
       <StartupDirectory>WMH\bin\Release\</StartupDirectory>
-      <Arguments>
-      </Arguments>
+      <Arguments>100 10 100 200 100 100 1</Arguments>
       <NetAppHost>IIS</NetAppHost>
       <NetBrowser>InternetExplorer</NetBrowser>
       <ExcludeSmallFuncs>true</ExcludeSmallFuncs>
@@ -70,6 +69,9 @@
   <Reports>
     <Report>
       <Path>WMH140125.vsp</Path>
+    </Report>
+    <Report>
+      <Path>WMH140128.vsp</Path>
     </Report>
   </Reports>
   <Launches>
